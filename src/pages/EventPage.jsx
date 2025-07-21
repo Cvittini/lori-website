@@ -52,7 +52,7 @@ export default function EventPage() {
     <div className="event-page">
       {/* Hero */}
       <section className="hero hero--subtle">
-        <div className="hero-inner">
+        <div className="container hero-inner">
           <h1>Join Our Community Workouts</h1>
           <p>One-hour sessions, great vibes, and healthy fuel available.</p>
           <a href="#register" className="cta-button">Register Now</a>
@@ -61,79 +61,83 @@ export default function EventPage() {
 
       {/* Events */}
       <section className="events-section">
-        <h2 className="section-title">Upcoming Events</h2>
-        <div className="event-list event-grid">
-          {events.length === 0 ? (
-            <p className="muted">No events yet. Check back soon!</p>
-          ) : (
-            events.map((evt) => <EventCard key={evt.id} {...evt} />)
-          )}
+        <div className="container">
+          <h2 className="section-title">Upcoming Events</h2>
+          <div className="event-grid">
+            {events.length === 0 ? (
+              <p className="muted">No events yet. Check back soon!</p>
+            ) : (
+              events.map((evt) => <EventCard key={evt.id} {...evt} />)
+            )}
+          </div>
         </div>
       </section>
 
       {/* Registration */}
       <section id="register" className="registration-section">
-        <h2 className="section-title">Register Now</h2>
+        <div className="container">
+          <h2 className="section-title">Register Now</h2>
 
-        <form className="registration-form card" onSubmit={handleSubmit} autoComplete="off">
-          <div className="form-row">
-            <label htmlFor="selectedEventId">Event</label>
-            <select
-              id="selectedEventId"
-              name="selectedEventId"
-              value={form.selectedEventId}
-              onChange={handleChange}
-              required
-            >
-              {events.map((e) => (
-                <option key={e.id} value={e.id}>
-                  {e.title} — {e.date} {e.time ? `• ${e.time}` : ""}
-                </option>
-              ))}
-            </select>
-          </div>
+          <form className="registration-form card" onSubmit={handleSubmit} autoComplete="off">
+            <div className="form-row">
+              <label htmlFor="selectedEventId">Event</label>
+              <select
+                id="selectedEventId"
+                name="selectedEventId"
+                value={form.selectedEventId}
+                onChange={handleChange}
+                required
+              >
+                {events.map((e) => (
+                  <option key={e.id} value={e.id}>
+                    {e.title} — {e.date} {e.time ? `• ${e.time}` : ""}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-          <div className="form-row">
-            <label htmlFor="fullName">Full Name</label>
-            <input
-              id="fullName"
-              type="text"
-              name="fullName"
-              placeholder="Full Name"
-              value={form.fullName}
-              onChange={handleChange}
-              required
-            />
-          </div>
+            <div className="form-row">
+              <label htmlFor="fullName">Full Name</label>
+              <input
+                id="fullName"
+                type="text"
+                name="fullName"
+                placeholder="Full Name"
+                value={form.fullName}
+                onChange={handleChange}
+                required
+              />
+            </div>
 
-          <div className="form-row">
-            <label htmlFor="email">Email Address</label>
-            <input
-              id="email"
-              type="email"
-              name="email"
-              placeholder="Email Address"
-              value={form.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
+            <div className="form-row">
+              <label htmlFor="email">Email Address</label>
+              <input
+                id="email"
+                type="email"
+                name="email"
+                placeholder="Email Address"
+                value={form.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
 
-          <div className="form-row">
-            <label htmlFor="phone">Phone (optional)</label>
-            <input
-              id="phone"
-              type="tel"
-              name="phone"
-              placeholder="Phone Number"
-              value={form.phone}
-              onChange={handleChange}
-            />
-          </div>
+            <div className="form-row">
+              <label htmlFor="phone">Phone (optional)</label>
+              <input
+                id="phone"
+                type="tel"
+                name="phone"
+                placeholder="Phone Number"
+                value={form.phone}
+                onChange={handleChange}
+              />
+            </div>
 
-          <button type="submit" className="btn-primary">Reserve Spot</button>
-          <p className="muted small">This opens your email app to send your registration.</p>
-        </form>
+            <button type="submit" className="btn-primary">Reserve Spot</button>
+            <p className="muted small">This opens your email app to send your registration.</p>
+          </form>
+        </div>
       </section>
     </div>
   );
