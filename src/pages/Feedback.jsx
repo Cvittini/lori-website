@@ -1,9 +1,12 @@
-import React from 'react'
+// src/pages/Feedback.jsx
 
+import React from 'react';
+import { FeedbackSection } from './FeedbackSection';
 const Feedback = () => {
   return (
-    <div>Feedback</div>
-  )
-}
-
-export default Feedback
+    <div>
+      <FeedbackSection />
+    </div>
+  );
+};
+export default Feedback;

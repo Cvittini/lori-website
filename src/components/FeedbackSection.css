@@ -1,0 +1,68 @@
+.feedback-girly {
+  background: linear-gradient(to right, #ffe3f3, #f1e5ff);
+  padding: 3rem 2rem;
+  border-radius: 20px;
+  max-width: 700px;
+  margin: 60px auto;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  font-family: 'Raleway', sans-serif;
+}
+
+.feedback-heading {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 2rem;
+  color: #db0db9;
+  margin-bottom: 0.5rem;
+}
+
+.feedback-subtext {
+  font-size: 1.1rem;
+  color: #444;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+.feedback-form-girly {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.feedback-form-girly input,
+.feedback-form-girly textarea,
+.feedback-form-girly select {
+  padding: 1rem;
+  border: 2px solid #db0db9;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: 'Raleway', sans-serif;
+  background-color: #fff;
+}
+
+.feedback-form-girly button {
+  padding: 1rem;
+  background-color: #db0db9;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 1rem;
+  font-family: 'Quicksand', sans-serif;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.feedback-form-girly button:hover {
+  background-color: #191cc2;
+}
+
+.thank-you-box {
+  background-color: #fff;
+  border: 2px solid #db0db9;
+  padding: 2rem;
+  border-radius: 15px;
+  color: #191cc2;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
