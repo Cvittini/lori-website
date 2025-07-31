@@ -1,0 +1,170 @@
+/* Font families (make sure these are linked in index.html or your layout) */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@600&family=Raleway:wght@400&display=swap');
+
+.home-page {
+  padding-top: 80px; /* offset for top nav */
+  font-family: 'Raleway', sans-serif;
+  color: #000;
+  background-color: #f9f9f9;
+}
+
+/* Hero */
+.hero-section {
+  background: linear-gradient(135deg, #ffe6f0, #f2f9ff);
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.hero-section h1 {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 2.8rem;
+  color: #191cc2;
+}
+
+.hero-section p {
+  margin: 15px 0;
+  font-size: 1.2rem;
+}
+
+.home-cta {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 24px;
+  background-color: #db0db9;
+  color: white;
+  text-decoration: none;
+  border-radius: 25px;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.home-cta:hover {
+  background-color: #191cc2;
+}
+
+/* About */
+.about-section {
+  padding: 60px 20px;
+  text-align: center;
+  background: #ffffff;
+}
+
+.about-section h2 {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 2rem;
+  color: #db0db9;
+}
+
+.about-section p {
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  padding: 60px 20px;
+  background: #f2f2f2;
+}
+
+.feature-box {
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  text-align: center;
+  text-decoration: none;
+  color: #000;
+  font-family: 'Raleway', sans-serif;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  border: 2px solid #fff;
+}
+
+.feature-box:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(219, 13, 185, 0.25);
+  border-color: #db0db9;
+  background: #fff0fa;
+}
+
+.feature-box .icon {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.feature-box h3 {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.3rem;
+  color: #191cc2;
+  margin-bottom: 10px;
+}
+
+.feature-box p {
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Footer CTA */
+.footer-cta {
+  padding: 40px 20px;
+  background: #db0db9;
+  text-align: center;
+  color: white;
+}
+
+.footer-cta a {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.newsletter-section {
+  background-color: #f2f2f2;
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.newsletter-section h2 {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.8rem;
+  color: #191cc2;
+  margin-bottom: 10px;
+}
+
+.newsletter-section p {
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.newsletter-form {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.newsletter-form input {
+  padding: 10px 15px;
+  width: 250px;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+  font-family: 'Raleway', sans-serif;
+}
+
+.newsletter-form button {
+  padding: 10px 20px;
+  background-color: #db0db9;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.newsletter-form button:hover {
+  background-color: #191cc2;
+}

@@ -10,6 +10,7 @@ const TopNav = () => {
       </div>
 
       <div className="top-right">
+        <a href="/" className="nav-link">Home</a>
         <a href="/events" className="nav-link">Events</a>
         <a href="/meals" className="nav-link">Meals</a>
         <a href="/plans" className="nav-link">Plans</a>
