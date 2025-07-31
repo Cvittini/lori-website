@@ -1,21 +1,14 @@
-// src/layout/MainLayout.jsx
 import React from 'react';
 import TopNav from '../components/TopNav';
-import Sidebar from '../components/Sidebar';
 import './MainLayout.css';
 
-const MainLayout = ({ children }) => {
-  return (
-    <div className="main-layout">
-      <TopNav />
-      <div className="layout-body">
-        <Sidebar />
-        <main className="main-content">
-          {children}
-        </main>
-      </div>
-    </div>
-  );
-};
+const MainLayout = ({ children }) => (
+  <div className="main-layout">
+    <TopNav />
+    <main className="main-content">
+      {children}
+    </main>
+  </div>
+);
 
 export default MainLayout;
