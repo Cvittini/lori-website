@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
-import "./Plans.css";
+import './Plans.css';
 
 const Plans = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    age: '',
     dislikedFoods: '',
-    preferredMeals: '',
     allergies: '',
+    preferredMeals: '',
     height: '',
     weight: '',
     fitnessLevel: '',
     goal: '',
+    workoutAccess: '',
   });
 
   const handleChange = (e) => {
@@ -20,24 +22,28 @@ const Plans = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    alert("Your plan request has been received!");
-    // You can POST to backend here later
+    console.log('Submitted data:', formData);
+    alert("Thank you! Your custom plan request was submitted.");
   };
 
   return (
-    <div className="plans-page">
-      <h1>Customized Plans</h1>
-      <div className="form-sections">
-        {/* Nutrition Plan */}
-        <form className="form-card" onSubmit={handleSubmit}>
+    <div className="plans-container">
+      <h1>Get Your Personalized Plan</h1>
+      <p className="plans-description">
+        💪 For just <strong>$50</strong>, receive 3 weeks of personalized coaching including one-on-one check-ins and weekly progress calls to adjust your nutrition and exercise plans.
+      </p>
+
+      <div className="plans-grid">
+        {/* Nutrition Form */}
+        <form className="plan-card" onSubmit={handleSubmit}>
           <h2>Nutrition Plan</h2>
-          <input type="text" name="name" placeholder="Your Name" required onChange={handleChange} />
-          <input type="email" name="email" placeholder="Your Email" required onChange={handleChange} />
+          <input type="text" name="name" placeholder="Full Name" required onChange={handleChange} />
+          <input type="email" name="email" placeholder="Email Address" required onChange={handleChange} />
+          <input type="number" name="age" placeholder="Age" required onChange={handleChange} />
           <textarea name="dislikedFoods" placeholder="Foods you dislike" onChange={handleChange}></textarea>
-          <textarea name="allergies" placeholder="Food allergies (if any)" onChange={handleChange}></textarea>
-          <label>How many meals per day?</label>
-          <select name="preferredMeals" onChange={handleChange}>
+          <textarea name="allergies" placeholder="Allergies (if any)" onChange={handleChange}></textarea>
+          <label>Meals per day</label>
+          <select name="preferredMeals" required onChange={handleChange}>
             <option value="">Select</option>
             <option value="2">2 meals</option>
             <option value="3">3 meals</option>
@@ -46,26 +52,32 @@ const Plans = () => {
           </select>
         </form>
 
-        {/* Exercise Plan */}
-        <form className="form-card" onSubmit={handleSubmit}>
+        {/* Exercise Form */}
+        <form className="plan-card" onSubmit={handleSubmit}>
           <h2>Exercise Plan</h2>
-          <input type="number" name="height" placeholder="Height in cm" required onChange={handleChange} />
-          <input type="number" name="weight" placeholder="Weight in kg" required onChange={handleChange} />
+          <input type="number" name="height" placeholder="Height (cm)" required onChange={handleChange} />
+          <input type="number" name="weight" placeholder="Weight (kg)" required onChange={handleChange} />
           <label>Fitness Level</label>
-          <select name="fitnessLevel" onChange={handleChange}>
+          <select name="fitnessLevel" required onChange={handleChange}>
             <option value="">Select</option>
             <option value="beginner">Beginner</option>
             <option value="intermediate">Intermediate</option>
             <option value="advanced">Advanced</option>
           </select>
-          <label>Goal</label>
-          <select name="goal" onChange={handleChange}>
+          <label>Workout Goal</label>
+          <select name="goal" required onChange={handleChange}>
             <option value="">Select</option>
             <option value="lose">Lose weight</option>
             <option value="gain">Gain weight</option>
             <option value="muscle">Build muscle</option>
           </select>
-          <button type="submit">Submit Plan Request</button>
+          <label>Workout Access</label>
+          <select name="workoutAccess" required onChange={handleChange}>
+            <option value="">Select</option>
+            <option value="gym">Gym</option>
+            <option value="home">Home</option>
+          </select>
+          <button type="submit">Submit Plan</button>
         </form>
       </div>
     </div>

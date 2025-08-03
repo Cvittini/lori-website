@@ -1,6 +1,6 @@
 .top-navbar {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   background: #fff;
   padding: 12px 24px;
@@ -76,4 +76,14 @@
 .social-icons a:hover {
   transform: scale(1.2);
   color: #191cc2;
+}
+
+.store-logo {
+  height: 20px;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.store-logo:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
 }
