@@ -1,58 +1,76 @@
 .top-navbar {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   background: #fff;
-  padding: 10px 20px;
+  padding: 12px 24px;
   width: 100%;
   z-index: 1999;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
 }
 
+/* Logo */
 .top-left .logo {
-  height: 80px;
+  height: 60px;
+  transition: transform 0.3s ease;
 }
 
+.top-left .logo:hover {
+  transform: scale(1.05);
+}
+
+/* Nav links group */
 .top-right {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 18px;
+  flex-wrap: wrap;
 }
 
+/* Nav link base */
 .nav-link {
   font-family: 'Quicksand', sans-serif;
   text-decoration: none;
   color: #ff3385;
-  font-weight: 500;
-  padding: 5px 10px;
-  transition: color 0.2s ease;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 8px 14px;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  position: relative;
 }
 
+/* Hover glow + color swap */
+.nav-link:hover {
+  background-color: #ffecf5;
+  color: #130116;
+  box-shadow: 0 0 8px rgba(255, 51, 133, 0.2);
+}
+
+/* Optional: separate class for green nav links */
 .nav-link-h {
   text-decoration: none;
-  color:green
+  color: green;
+  font-weight: bold;
 }
 
 .nav-link-h:hover {
   color: #191cc2;
 }
 
-.nav-link:hover {
-  color: #130116;
-}
-
-/* Social Icons */
+/* Social icons if used here */
 .social-icons {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-left: 15px;
+  gap: 12px;
+  margin-left: 20px;
 }
 
 .social-icons a {
   color: #ff3385;
   font-size: 18px;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, color 0.2s ease;
 }
 
 .social-icons a:hover {

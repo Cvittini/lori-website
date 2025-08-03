@@ -2,11 +2,12 @@ import React from 'react';
 import './TopNav.css';
 import { FaInstagram, FaTelegramPlane, FaWhatsapp } from 'react-icons/fa';
 
+
 const TopNav = () => {
   return (
     <div className="top-navbar">
       <div className="top-left">
-        <img src="/Lorilogo.png" alt="Lorimar Logo" className="logo" />
+      <img src="/Lori'sfitnesslogo.png" alt="Lorimar Logo" className="logo" />
       </div>
 
       <div className="top-right">

@@ -5,7 +5,7 @@
   padding-top: 80px; /* offset for top nav */
   font-family: 'Raleway', sans-serif;
   color: #000;
-  background-color: #f9f9f9;
+
 }
 
 /* Hero */
@@ -66,7 +66,7 @@
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 24px;
   padding: 60px 20px;
-  background: #f2f2f2;
+
 }
 
 .feature-box {
