@@ -1,5 +1,5 @@
 import React from "react";
-import "./EventPage.css";
+import '../Styles/harmonized-styles.css';
 import EventCard from "../components/EventCard/EventCard";
 
 const EventPage = () => {

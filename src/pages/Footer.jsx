@@ -1,5 +1,5 @@
 import React from 'react';
-import './Footer.css';
+import '../Styles/harmonized-styles.css';
 import { FaInstagram, FaWhatsapp, FaTelegramPlane } from 'react-icons/fa';
 
 const Footer = () => {

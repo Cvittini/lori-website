@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Feedback.css'; // You can rename FeedbackSection.css to just Feedback.css
+import '../Styles/harmonized-styles.css';
 
 const Feedback = () => {
   const [submitted, setSubmitted] = useState(false);

@@ -1,5 +1,7 @@
-import React from 'react';
-import './EventCard.css';
+import React from "react";
+import '../../Styles/harmonized-styles.css';
+
+
 
 const EventCard = ({
   image,
@@ -19,18 +21,24 @@ const EventCard = ({
         <p className="event-description">{description}</p>
 
         <div className="event-meta">
-          <p><strong>Date:</strong> {date}</p>
-          <p><strong>Time:</strong> {time}</p>
-          <p><strong>Location:</strong> {location}</p>
+          <p>
+            <strong>Date:</strong> {date}
+          </p>
+          <p>
+            <strong>Time:</strong> {time}
+          </p>
+          <p>
+            <strong>Location:</strong> {location}
+          </p>
         </div>
 
         <div className="event-tags">
           {tags.map((tag, index) => (
-            <span key={index} className="event-tag">{tag}</span>
+            <span key={index} className="event-tag">
+              {tag}
+            </span>
           ))}
         </div>
-
-        
       </div>
     </div>
   );

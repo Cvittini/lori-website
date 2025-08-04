@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Meals.css';
+import '../Styles/harmonized-styles.css';
 
 const productData = {
   cookies: {

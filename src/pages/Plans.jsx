@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Plans.css';
+import '../Styles/harmonized-styles.css';
 
 const Plans = () => {
   const [formData, setFormData] = useState({

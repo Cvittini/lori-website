@@ -1,5 +1,5 @@
 import React from 'react';
-import './Blog.css';
+import '../Styles/harmonized-styles.css';
 
 const Blog = ({
   title = "Untitled Event",
