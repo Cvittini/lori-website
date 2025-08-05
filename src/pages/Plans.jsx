@@ -6,15 +6,14 @@ const Plans = () => {
     name: '',
     email: '',
     age: '',
-    likes: '',
-    dislikes: '',
+    dislikedFoods: '',
     allergies: '',
-    mealsPerDay: '',
+    preferredMeals: '',
     height: '',
     weight: '',
     fitnessLevel: '',
     goal: '',
-    workoutLocation: '',
+    workoutAccess: '',
   });
 
   const handleChange = (e) => {
@@ -26,71 +25,93 @@ const Plans = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const res = await fetch('http://localhost:5000/api/plans', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formData),
       });
 
       const data = await res.json();
       if (res.ok) {
-        alert('Plan submitted successfully!');
+        alert("Thank you! Your custom plan request was submitted.");
+        console.log('Submitted data:', formData);
         setFormData({
-          name: '', email: '', age: '', likes: '', dislikes: '', allergies: '',
-          mealsPerDay: '', height: '', weight: '', fitnessLevel: '', goal: '', workoutLocation: ''
+          name: '',
+          email: '',
+          age: '',
+          dislikedFoods: '',
+          allergies: '',
+          preferredMeals: '',
+          height: '',
+          weight: '',
+          fitnessLevel: '',
+          goal: '',
+          workoutAccess: '',
         });
       } else {
-        alert('Error: ' + data.error);
+        alert("Submission failed: " + data.error);
       }
-    } catch (error) {
-      console.error(error);
-      alert('Submission failed');
+    } catch (err) {
+      console.error(err);
+      alert("Server error. Please try again.");
     }
   };
 
   return (
-    <div className="main-container">
-      <h2 className="section-title">Custom Plan Request</h2>
-      <p className="section-description">
-        $50 for 3 weeks of one-on-one coaching including weekly check-ins.
+    <div className="plans-container">
+      <h1>Get Your Personalized Plan</h1>
+      <p className="plans-description">
+        💪 For just <strong>$50</strong>, receive 3 weeks of personalized coaching including one-on-one check-ins and weekly progress calls to adjust your nutrition and exercise plans.
       </p>
 
-      <form className="form-container" onSubmit={handleSubmit}>
-        <input className="form-input" name="name" value={formData.name} onChange={handleChange} placeholder="Name" required />
-        <input className="form-input" name="email" type="email" value={formData.email} onChange={handleChange} placeholder="Email" required />
-        <input className="form-input" name="age" type="number" value={formData.age} onChange={handleChange} placeholder="Age" required />
+      <form className="plans-grid" onSubmit={handleSubmit}>
+        {/* Nutrition Form */}
+        <div className="plan-card">
+          <h2>Nutrition Plan</h2>
+          <input type="text" name="name" placeholder="Full Name" required value={formData.name} onChange={handleChange} />
+          <input type="email" name="email" placeholder="Email Address" required value={formData.email} onChange={handleChange} />
+          <input type="number" name="age" placeholder="Age" required value={formData.age} onChange={handleChange} />
+          <textarea name="dislikedFoods" placeholder="Foods you dislike" value={formData.dislikedFoods} onChange={handleChange}></textarea>
+          <textarea name="allergies" placeholder="Allergies (if any)" value={formData.allergies} onChange={handleChange}></textarea>
+          <label>Meals per day</label>
+          <select name="preferredMeals" required value={formData.preferredMeals} onChange={handleChange}>
+            <option value="">Select</option>
+            <option value="2">2 meals</option>
+            <option value="3">3 meals</option>
+            <option value="4">4 meals</option>
+            <option value="5">5 meals</option>
+          </select>
+        </div>
 
-        <input className="form-input" name="likes" value={formData.likes} onChange={handleChange} placeholder="Liked foods" />
-        <input className="form-input" name="dislikes" value={formData.dislikes} onChange={handleChange} placeholder="Disliked foods" />
-        <input className="form-input" name="allergies" value={formData.allergies} onChange={handleChange} placeholder="Allergies" />
-        <input className="form-input" name="mealsPerDay" value={formData.mealsPerDay} onChange={handleChange} placeholder="Meals per day" />
+        {/* Exercise Form */}
+        <div className="plan-card">
+          <h2>Exercise Plan</h2>
+          <input type="number" name="height" placeholder="Height (cm)" required value={formData.height} onChange={handleChange} />
+          <input type="number" name="weight" placeholder="Weight (kg)" required value={formData.weight} onChange={handleChange} />
+          <label>Fitness Level</label>
+          <select name="fitnessLevel" required value={formData.fitnessLevel} onChange={handleChange}>
+            <option value="">Select</option>
+            <option value="beginner">Beginner</option>
+            <option value="intermediate">Intermediate</option>
+            <option value="advanced">Advanced</option>
+          </select>
+          <label>Workout Goal</label>
+          <select name="goal" required value={formData.goal} onChange={handleChange}>
+            <option value="">Select</option>
+            <option value="lose">Lose weight</option>
+            <option value="gain">Gain weight</option>
+            <option value="muscle">Build muscle</option>
+          </select>
+          <label>Workout Access</label>
+          <select name="workoutAccess" required value={formData.workoutAccess} onChange={handleChange}>
+            <option value="">Select</option>
+            <option value="gym">Gym</option>
+            <option value="home">Home</option>
+          </select>
 
-        <input className="form-input" name="height" value={formData.height} onChange={handleChange} placeholder="Height (e.g. 5'7 or 170cm)" />
-        <input className="form-input" name="weight" value={formData.weight} onChange={handleChange} placeholder="Weight (e.g. 160 lbs or 72kg)" />
-
-        <select className="form-select" name="fitnessLevel" value={formData.fitnessLevel} onChange={handleChange} required>
-          <option value="">Select fitness level</option>
-          <option value="beginner">Beginner</option>
-          <option value="intermediate">Intermediate</option>
-          <option value="advanced">Advanced</option>
-        </select>
-
-        <select className="form-select" name="goal" value={formData.goal} onChange={handleChange} required>
-          <option value="">Select goal</option>
-          <option value="lose">Lose Weight</option>
-          <option value="gain">Gain Weight</option>
-          <option value="build">Build Muscle</option>
-        </select>
-
-        <select className="form-select" name="workoutLocation" value={formData.workoutLocation} onChange={handleChange} required>
-          <option value="">Workout location</option>
-          <option value="home">Home</option>
-          <option value="gym">Gym</option>
-        </select>
-
-        <button className="form-submit" type="submit">Submit Plan</button>
+          <button type="submit">Submit Plan</button>
+        </div>
       </form>
     </div>
   );
