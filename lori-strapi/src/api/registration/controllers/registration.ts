@@ -15,7 +15,7 @@ export default factories.createCoreController('api::registration.registration', 
     // Save registration
     const entry = await strapi.entityService.create('api::registration.registration', {
       data: {
-        fullName: body.fullName,
+        fullname: body.fullName,
         email: body.email,
         phone: body.phone ?? '',
         selectedEvent: body.selectedEvent,
