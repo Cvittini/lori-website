@@ -1,11 +1,11 @@
-module.exports = [
+export default [
   'strapi::errors',
   {
     name: 'strapi::cors',
     config: {
-      origin: ['http://localhost:3000'], // update with your deployed site later
+      origin: ['http://localhost:3000'], // change to your deployed frontend URL later
       headers: ['Content-Type', 'Authorization', 'Origin', 'Accept'],
-      methods: ['GET','POST','PUT','PATCH','DELETE','HEAD','OPTIONS'],
+      methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
       credentials: true,
     },
   },
