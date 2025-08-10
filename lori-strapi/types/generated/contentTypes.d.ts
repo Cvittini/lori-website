@@ -410,6 +410,46 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiBlogPostBlogPost extends Struct.CollectionTypeSchema {
+  collectionName: 'blog_posts';
+  info: {
+    displayName: 'Blog Post';
+    pluralName: 'blog-posts';
+    singularName: 'blog-post';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    content: Schema.Attribute.RichText;
+    coverImage: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    excerpt: Schema.Attribute.Text;
+    gallery: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::blog-post.blog-post'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'seo.shared-component', false>;
+    slug: Schema.Attribute.UID;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    video: Schema.Attribute.Component<'video.media-video', false>;
+  };
+}
+
 export interface ApiEventEvent extends Struct.CollectionTypeSchema {
   collectionName: 'events';
   info: {
@@ -429,33 +469,34 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     date: Schema.Attribute.Date;
     description: Schema.Attribute.RichText;
-    includes: Schema.Attribute.String;
-    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    gallery: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    isFeatured: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::event.event'> &
       Schema.Attribute.Private;
     location: Schema.Attribute.String;
     price: Schema.Attribute.Decimal;
     publishedAt: Schema.Attribute.DateTime;
-    registrations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::registration.registration'
-    >;
-    time: Schema.Attribute.String;
-    title: Schema.Attribute.String & Schema.Attribute.Required;
+    seo: Schema.Attribute.Component<'seo.shared-seo', false>;
+    slug: Schema.Attribute.UID<'title'>;
+    startTime: Schema.Attribute.Time;
+    tags: Schema.Attribute.String;
+    title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
   };
 }
 
-export interface ApiRegistrationRegistration
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'registrations';
+export interface ApiMealMeal extends Struct.CollectionTypeSchema {
+  collectionName: 'meals';
   info: {
-    displayName: 'Registration';
-    pluralName: 'registrations';
-    singularName: 'registration';
+    displayName: 'Meal';
+    pluralName: 'meals';
+    singularName: 'meal';
   };
   options: {
     draftAndPublish: true;
@@ -464,18 +505,111 @@ export interface ApiRegistrationRegistration
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    email: Schema.Attribute.Email & Schema.Attribute.Required;
-    event: Schema.Attribute.Relation<'manyToOne', 'api::event.event'>;
-    fullname: Schema.Attribute.String & Schema.Attribute.Required;
-    honeypot: Schema.Attribute.String;
+    description: Schema.Attribute.RichText;
+    flavor: Schema.Attribute.Enumeration<['tropical fruit, tropical, blues']>;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    isAvailabe: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::meal.meal'> &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    packs: Schema.Attribute.Component<'packs.shop-pack-option', true>;
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'seo.shared-seo', false>;
+    slug: Schema.Attribute.UID;
+    type: Schema.Attribute.Enumeration<['cookie,tea']>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiMediaVideoMediaVideo extends Struct.CollectionTypeSchema {
+  collectionName: 'media_videos';
+  info: {
+    displayName: 'media.video';
+    pluralName: 'media-videos';
+    singularName: 'media-video';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::registration.registration'
+      'api::media-video.media-video'
     > &
       Schema.Attribute.Private;
-    phone: Schema.Attribute.String;
+    posterMedia: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
     publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    videoUrl: Schema.Attribute.String;
+  };
+}
+
+export interface ApiSharedSeoSharedSeo extends Struct.CollectionTypeSchema {
+  collectionName: 'shared_seos';
+  info: {
+    displayName: 'shared.seo';
+    pluralName: 'shared-seos';
+    singularName: 'shared-seo';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::shared-seo.shared-seo'
+    > &
+      Schema.Attribute.Private;
+    metaDescription: Schema.Attribute.Text;
+    metaTitle: Schema.Attribute.String;
+    ogImage: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiSopPackOptionSopPackOption
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'sop_pack_options';
+  info: {
+    displayName: 'sop.packOption';
+    pluralName: 'sop-pack-options';
+    singularName: 'sop-pack-option';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    label: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::sop-pack-option.sop-pack-option'
+    > &
+      Schema.Attribute.Private;
+    price: Schema.Attribute.Decimal;
+    publishedAt: Schema.Attribute.DateTime;
+    quantity: Schema.Attribute.Integer;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -992,8 +1126,12 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::blog-post.blog-post': ApiBlogPostBlogPost;
       'api::event.event': ApiEventEvent;
-      'api::registration.registration': ApiRegistrationRegistration;
+      'api::meal.meal': ApiMealMeal;
+      'api::media-video.media-video': ApiMediaVideoMediaVideo;
+      'api::shared-seo.shared-seo': ApiSharedSeoSharedSeo;
+      'api::sop-pack-option.sop-pack-option': ApiSopPackOptionSopPackOption;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "shared_seos",
+  "info": {
+    "singularName": "shared-seo",
+    "pluralName": "shared-seos",
+    "displayName": "shared.seo"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "metaTitle": {
+      "type": "string"
+    },
+    "metaDescription": {
+      "type": "text"
+    },
+    "ogImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  }
+}
