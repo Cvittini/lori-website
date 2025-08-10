@@ -2,51 +2,65 @@ import React, { useEffect, useState } from "react";
 import "../Styles/harmonized-styles.css";
 import EventCard from "../components/EventCard/EventCard";
 
-// Works with either Vite or CRA env vars
+// Works with Vite or CRA
 const API =
   (typeof import.meta !== "undefined" && import.meta.env?.VITE_STRAPI_URL) ||
   process.env.REACT_APP_STRAPI_URL ||
   "http://localhost:1337";
 
-const EventPage = () => {
+const isPreview =
+  typeof window !== "undefined" &&
+  new URLSearchParams(window.location.search).get("preview") === "1";
+
+export default function Events() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Registration form state
   const [form, setForm] = useState({
     fullName: "",
     email: "",
     phone: "",
     selectedEvent: "",
-    honeypot: "", // leave empty (spam trap)
+    honeypot: "", // spam trap
   });
 
   useEffect(() => {
     const load = async () => {
       try {
-        // Pull only active events, with banner image
-        const res = await fetch(
-          `${API}/api/events?populate=bannerImage&filters[isActive][$eq]=true&sort=date:asc`
-        );
+        // Build URL
+        const url = new URL(`${API}/api/events`);
+        // Try to populate the banner field; fall back to 'image' if your field is named differently
+        url.searchParams.set("populate", "bannerImage,image");
+        url.searchParams.set("sort", "date:asc");
+        // Keep this if you created isActive; remove if you didn't
+        url.searchParams.set("filters[isActive][$eq]", "true");
+        // Preview draft content (requires proper permissions/token server-side; otherwise public will still see published only)
+        if (isPreview) url.searchParams.set("publicationState", "preview");
+
+        const res = await fetch(url.toString());
         const json = await res.json();
+
         const list = (json?.data || []).map((e) => {
-          const a = e.attributes || {};
-          const bannerUrl = a.bannerImage?.data?.attributes?.url || "";
+          const a = e?.attributes || {};
+          const bannerUrl =
+            a?.bannerImage?.data?.attributes?.url ||
+            a?.image?.data?.attributes?.url ||
+            "";
+
           return {
             id: e.id,
-            image: bannerUrl ? `${API}${bannerUrl}` : "/images/zumba.jpg", // fallback
-            title: a.title,
-            description: a.description,
-            date: a.date,
-            time: a.time,
-            location: a.location,
+            image: bannerUrl ? `${API}${bannerUrl}` : "/images/zumba.jpg",
+            title: a.title || "",
+            description: a.description || "",
+            date: a.date || "",
+            time: a.time || "",
+            location: a.location || "",
             tags: a.includes ? a.includes.split(",").map((t) => t.trim()) : [],
           };
         });
 
         setEvents(list);
-        // Pre-select first event in the registration form
-        if (list.length && !form.selectedEvent) {
+        if (list.length) {
           setForm((f) => ({ ...f, selectedEvent: String(list[0].id) }));
         }
       } catch (err) {
@@ -55,6 +69,7 @@ const EventPage = () => {
         setLoading(false);
       }
     };
+
     load();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -66,8 +81,6 @@ const EventPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Minimal client validation
     if (!form.fullName || !form.email || !form.selectedEvent) {
       alert("Please fill name, email, and select an event.");
       return;
@@ -77,7 +90,6 @@ const EventPage = () => {
       const res = await fetch(`${API}/api/registrations`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        // Strapi v4 expects { data: {...} }
         body: JSON.stringify({
           data: {
             fullName: form.fullName,
@@ -107,10 +119,16 @@ const EventPage = () => {
 
   return (
     <div className="event-page">
-      {/* Upcoming Events */}
+      {/* Optional hero section (matches .hero and .cta-button styles) */}
+      <section className="hero">
+        <h1>Join Our Community Workouts</h1>
+        <p>One-hour sessions, great vibes, and healthy fuel available.</p>
+        <a href="#register" className="cta-button">Register Now</a>
+      </section>
+
+      {/* Events */}
       <section className="events-section">
         <h2>Upcoming Events</h2>
-
         {loading ? (
           <div>Loading events…</div>
         ) : (
@@ -118,14 +136,14 @@ const EventPage = () => {
             {events.length === 0 ? (
               <p>No events yet. Check back soon!</p>
             ) : (
-              events.map((event) => <EventCard key={event.id} {...event} />)
+              events.map((evt) => <EventCard key={evt.id} {...evt} />)
             )}
           </div>
         )}
       </section>
 
       {/* Registration Form */}
-      <section className="registration-section">
+      <section id="register" className="registration-section">
         <h2>Register Now</h2>
         <form className="registration-form" onSubmit={handleSubmit} autoComplete="off">
           {/* hidden honeypot (anti-bot) */}
@@ -182,20 +200,14 @@ const EventPage = () => {
         </form>
       </section>
 
-      {/* FAQ (you can also move FAQs into Strapi later) */}
+      {/* FAQ */}
       <section className="faq-section">
         <h2>FAQs</h2>
         <div className="faq">
-          <p>
-            <strong>What should I bring?</strong> Comfortable clothes, water, and a smile!
-          </p>
-          <p>
-            <strong>Is food included?</strong> No, but meals and drinks are available for purchase.
-          </p>
+          <p><strong>What should I bring?</strong> Comfortable clothes, water, and a smile!</p>
+          <p><strong>Is food included?</strong> Meals and drinks are available for purchase.</p>
         </div>
       </section>
     </div>
   );
-};
-
-export default EventPage;
+}

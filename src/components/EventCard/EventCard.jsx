@@ -1,47 +1,36 @@
 import React from "react";
-import '../../Styles/harmonized-styles.css';
+// correct relative path to the shared styles (two levels up)
+import "../../Styles/harmonized-styles.css";
 
-
-
-const EventCard = ({
-  image,
-  title,
-  description,
-  date,
-  time,
-  location,
+export default function EventCard({
+  image = "/images/zumba.jpg",
+  title = "",
+  description = "",
+  date = "",
+  time = "",
+  location = "",
   tags = [],
-}) => {
+}) {
   return (
-    <div className="event-card">
-      <img src={image} alt={title} className="event-image" />
-
-      <div className="event-details">
-        <h2 className="event-title">{title}</h2>
-        <p className="event-description">{description}</p>
-
-        <div className="event-meta">
-          <p>
-            <strong>Date:</strong> {date}
+    <article className="event-card">
+      {image && <img className="event-banner" src={image} alt={title || "Event"} />}
+      <div className="event-content">
+        {title && <h3>{title}</h3>}
+        {(date || time || location) && (
+          <p className="event-meta">
+            {date}{date && time ? " • " : ""}{time}
+            {(date || time) && location ? " — " : ""}{location}
           </p>
-          <p>
-            <strong>Time:</strong> {time}
-          </p>
-          <p>
-            <strong>Location:</strong> {location}
-          </p>
-        </div>
-
-        <div className="event-tags">
-          {tags.map((tag, index) => (
-            <span key={index} className="event-tag">
-              {tag}
-            </span>
-          ))}
-        </div>
+        )}
+        {description && <p className="event-desc">{description}</p>}
+        {Array.isArray(tags) && tags.length > 0 && (
+          <div className="event-tags">
+            {tags.map((t, i) => (
+              <span className="tag-pill" key={i}>{t}</span>
+            ))}
+          </div>
+        )}
       </div>
-    </div>
+    </article>
   );
-};
-
-export default EventCard;
+}

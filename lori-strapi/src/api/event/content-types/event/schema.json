@@ -24,9 +24,6 @@
     "location": {
       "type": "string"
     },
-    "description": {
-      "type": "text"
-    },
     "includes": {
       "type": "string"
     },
@@ -52,6 +49,9 @@
       "relation": "oneToMany",
       "target": "api::registration.registration",
       "mappedBy": "event"
+    },
+    "description": {
+      "type": "richtext"
     }
   }
 }
