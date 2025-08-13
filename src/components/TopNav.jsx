@@ -64,7 +64,7 @@ const TopNav = () => {
             <FaInstagram />
           </a>
           <a
-            href="https://t.me/Loris_fitnes"
+            href="https://t.me/Loris_fitness"
             target="_blank"
             rel="noopener noreferrer"
           >
