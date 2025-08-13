@@ -23,24 +23,24 @@ const TopNav = () => {
       </div>
 
       <div className={`top-right ${menuOpen ? "active" : ""}`}>
-        <a href="/" className="nav-link">
+        <Link to="/" className="nav-link" onClick={() => setMenuOpen(false)}>
           Home
-        </a>
-        <a href="/events" className="nav-link">
+        </Link>
+        <Link to="/events" className="nav-link" onClick={() => setMenuOpen(false)}>
           Events
-        </a>
-        <a href="/meals" className="nav-link">
+        </Link>
+        <Link to="/meals" className="nav-link" onClick={() => setMenuOpen(false)}>
           Meals
-        </a>
-        <a href="/plans" className="nav-link">
+        </Link>
+        <Link to="/plans" className="nav-link" onClick={() => setMenuOpen(false)}>
           Plans
-        </a>
-        <a href="/blog" className="nav-link">
+        </Link>
+        <Link to="/blog" className="nav-link" onClick={() => setMenuOpen(false)}>
           Blog
-        </a>
-        <a href="/feedback" className="nav-link">
+        </Link>
+        <Link to="/feedback" className="nav-link" onClick={() => setMenuOpen(false)}>
           Feedback
-        </a>
+        </Link>
 
         <a
           href="https://lorimardejesus.herbalife.com/es-us/u"
