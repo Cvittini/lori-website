@@ -342,9 +342,6 @@ code {
   color: #b3006b;
 }
 
-
-
-
 /* buttons */
 .btn-primary {
   display: inline-block;
@@ -489,10 +486,7 @@ code {
 
 /* ========== Section Headings ========== */
 .events-section h2,
-.registration-section h2,
-.faq-section h2,
-.menu-section h2,
-.gallery-section h2 {
+.registration-section h2 {
   color: #ff3385;
   margin-top: 40px;
   font-size: 2rem;
@@ -508,19 +502,10 @@ code {
   margin-top: 20px;
 }
 
-/* ========== Menu & Gallery ========== */
-.menu-list,
-.gallery-grid {
-  display: grid;
-  gap: 20px;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  margin-top: 20px;
-}
-
 /* ========== Registration Form ========== */
-.event-page .registration-section { 
-  padding: 26px 0 40px; 
-  text-align: initial;            /* cancel any global center alignment */
+.event-page .registration-section {
+  padding: 26px 0 40px;
+  text-align: initial; /* cancel any global center alignment */
 }
 
 .registration-form {
@@ -532,8 +517,8 @@ code {
   padding: 22px;
   display: grid;
   gap: 14px;
-  text-align: left;               /* keep labels/fields aligned inside the card */
-  overflow: hidden;               /* prevents tiny bleed past rounded corners */
+  text-align: left; /* keep labels/fields aligned inside the card */
+  overflow: hidden; /* prevents tiny bleed past rounded corners */
   box-sizing: border-box;
 }
 
@@ -547,14 +532,14 @@ code {
   font-weight: 700;
   font-size: 0.95rem;
   color: #222;
-  margin: 0 6px;                  /* pulls label off input edges a bit */
+  margin: 0 6px; /* pulls label off input edges a bit */
 }
 
 .registration-form input,
 .registration-form select,
 .registration-form textarea {
   width: 100%;
-  box-sizing: border-box;          /* include padding/border in width */
+  box-sizing: border-box; /* include padding/border in width */
   border: 1px solid #ffd0e6;
   border-radius: 12px;
   padding: 12px 14px;
@@ -586,12 +571,14 @@ code {
   border-radius: 999px;
   font-weight: 700;
   cursor: pointer;
-  transition: transform .15s ease, box-shadow .2s ease;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.2s ease;
 }
 .registration-form .btn-primary:hover,
 .registration-form button[type="submit"]:hover {
   transform: translateY(-1px);
-  box-shadow: 0 10px 24px rgba(255, 0, 160, 0.30);
+  box-shadow: 0 10px 24px rgba(255, 0, 160, 0.3);
 }
 
 /* small helper text under the button */
@@ -605,20 +592,12 @@ code {
 
 /* responsive tweaks */
 @media (max-width: 520px) {
-  .registration-form { padding: 16px; }
-  .registration-form label { margin: 0 2px; }
-}
-
-/* ========== FAQ Styling ========== */
-.faq p {
-  color: #4b006e;
-  background-color: #fff5fb;
-  padding: 10px 16px;
-  margin: 10px auto;
-  max-width: 600px;
-  border-radius: 10px;
-  box-shadow: 0 0 8px rgba(255, 153, 204, 0.4);
-  text-align: left;
+  .registration-form {
+    padding: 16px;
+  }
+  .registration-form label {
+    margin: 0 2px;
+  }
 }
 
 /* === Feedback.css === */
@@ -892,69 +871,6 @@ code {
 .feature-box p {
   font-size: 1rem;
   color: #333;
-}
-
-/* Footer CTA */
-.footer-cta {
-  padding: 40px 20px;
-  background: #db0db9;
-  text-align: center;
-  color: white;
-}
-
-.footer-cta a {
-  color: #ffffff;
-  text-decoration: underline;
-}
-
-.newsletter-section {
-  background-color: #f2f2f2;
-  text-align: center;
-  padding: 50px 20px;
-}
-
-.newsletter-section h2 {
-  font-family: "Quicksand", sans-serif;
-  font-size: 1.8rem;
-  color: #191cc2;
-  margin-bottom: 10px;
-}
-
-.newsletter-section p {
-  font-size: 1rem;
-  margin-bottom: 20px;
-}
-
-.newsletter-form {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  max-width: 500px;
-  margin: 0 auto;
-}
-
-.newsletter-form input {
-  padding: 10px 15px;
-  width: 250px;
-  border-radius: 25px;
-  border: 1px solid #ccc;
-  font-family: "Raleway", sans-serif;
-}
-
-.newsletter-form button {
-  padding: 10px 20px;
-  background-color: #db0db9;
-  color: white;
-  border: none;
-  border-radius: 25px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.newsletter-form button:hover {
-  background-color: #191cc2;
 }
 
 /* === Meals.css === */
