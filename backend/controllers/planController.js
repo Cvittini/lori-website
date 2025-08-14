@@ -1,8 +1,14 @@
 const Plan = require('../models/Plan');
 const nodemailer = require('nodemailer');
-require('dotenv').config();
+const { validationResult } = require('express-validator');
+const { EMAIL_USER, EMAIL_PASS, EMAIL_TO } = require('../config');
 
 exports.submitPlan = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
   try {
     const plan = new Plan(req.body);
     await plan.save();
@@ -11,14 +17,14 @@ exports.submitPlan = async (req, res) => {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+        user: EMAIL_USER,
+        pass: EMAIL_PASS,
       },
     });
 
     const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: process.env.EMAIL_TO,
+      from: EMAIL_USER,
+      to: EMAIL_TO,
       subject: 'New Custom Plan Submission',
       text: `
 📬 New plan submission:
