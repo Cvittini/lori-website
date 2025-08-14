@@ -13,7 +13,7 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 
-const allowedOrigins = [CLIENT_ORIGIN, 'http://localhost:3000'];
+const allowedOrigins = [CLIENT_ORIGIN];
 const corsOptions = {
   origin: (origin, callback) => {
     if (!origin || allowedOrigins.includes(origin)) {
