@@ -1,13 +1,22 @@
-const Plan = require('../models/Plan');
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 
 exports.submitPlan = async (req, res) => {
   try {
-    const plan = new Plan(req.body);
-    await plan.save();
+    const {
+      name,
+      email,
+      age,
+      dislikedFoods,
+      allergies,
+      preferredMeals,
+      height,
+      weight,
+      fitnessLevel,
+      goal,
+      workoutAccess,
+    } = req.body;
 
-    // Email setup
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -18,32 +27,32 @@ exports.submitPlan = async (req, res) => {
 
     const mailOptions = {
       from: process.env.EMAIL_USER,
-      to: process.env.EMAIL_TO,
+      to: 'lorimarfitness@gmail.com',
       subject: 'New Custom Plan Submission',
       text: `
 📬 New plan submission:
 
-Name: ${plan.name}
-Email: ${plan.email}
-Age: ${plan.age}
+Name: ${name}
+Email: ${email}
+Age: ${age}
 
-Disliked Foods: ${plan.dislikedFoods}
-Allergies: ${plan.allergies}
-Meals per Day: ${plan.preferredMeals}
+Disliked Foods: ${dislikedFoods}
+Allergies: ${allergies}
+Meals per Day: ${preferredMeals}
 
-Height: ${plan.height}
-Weight: ${plan.weight}
-Fitness Level: ${plan.fitnessLevel}
-Goal: ${plan.goal}
-Workout Access: ${plan.workoutAccess}
+Height: ${height}
+Weight: ${weight}
+Fitness Level: ${fitnessLevel}
+Goal: ${goal}
+Workout Access: ${workoutAccess}
 
-🕒 Submitted at: ${plan.createdAt}
+🕒 Submitted at: ${new Date().toISOString()}
       `,
     };
 
     await transporter.sendMail(mailOptions);
 
-    res.status(201).json({ message: 'Plan submitted and email sent' });
+    res.status(200).json({ message: 'Plan submitted and email sent' });
   } catch (error) {
     console.error('Submit plan error:', error);
     res.status(500).json({ error: 'Failed to submit plan' });
