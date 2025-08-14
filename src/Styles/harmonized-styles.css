@@ -774,32 +774,38 @@ code {
   padding-top: 80px; /* offset for top nav */
   font-family: "Raleway", sans-serif;
   color: #000;
+  background: var(--secondary-color);
 }
 
 /* Hero */
 .hero-section {
-  background: linear-gradient(135deg, #ffe6f0, #f2f9ff);
+  background: linear-gradient(
+    135deg,
+    var(--accent-light),
+    var(--accent-lavender)
+  );
   text-align: center;
-  padding: 80px 20px;
+  padding: 100px 20px;
 }
 
 .hero-section h1 {
   font-family: "Quicksand", sans-serif;
   font-size: 2.8rem;
-  color: #191cc2;
+  color: var(--primary-color);
 }
 
 .hero-section p {
   margin: 15px 0;
   font-size: 1.2rem;
+  color: #555;
 }
 
 .home-cta {
   display: inline-block;
   margin-top: 20px;
   padding: 12px 24px;
-  background-color: #db0db9;
-  color: white;
+  background-color: var(--primary-color);
+  color: #fff;
   text-decoration: none;
   border-radius: 25px;
   font-weight: bold;
@@ -815,12 +821,15 @@ code {
   padding: 60px 20px;
   text-align: center;
   background: #ffffff;
+  max-width: 900px;
+  margin: 0 auto;
+  border-radius: 20px;
 }
 
 .about-section h2 {
   font-family: "Quicksand", sans-serif;
   font-size: 2rem;
-  color: #db0db9;
+  color: var(--primary-color);
 }
 
 .about-section p {
@@ -852,7 +861,7 @@ code {
 .feature-box:hover {
   transform: translateY(-8px);
   box-shadow: 0 10px 25px rgba(219, 13, 185, 0.25);
-  border-color: #db0db9;
+  border-color: var(--primary-color);
   background: #fff0fa;
 }
 
@@ -1004,33 +1013,20 @@ code {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-.plans-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 40px;
-}
-
-.plan-card {
+.plan-form {
   background: #fef1f8;
   padding: 25px 20px;
   border-radius: 18px;
-  width: 320px;
+  max-width: 600px;
+  margin: 0 auto;
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
-  align-items: stretch;
 }
 
-.plan-card h2 {
-  color: #130116;
-  margin-bottom: 20px;
-  font-size: 1.5rem;
-}
-
-.plan-card input,
-.plan-card textarea,
-.plan-card select {
+.plan-form input,
+.plan-form textarea,
+.plan-form select {
   padding: 10px;
   margin-bottom: 15px;
   border-radius: 8px;
@@ -1039,19 +1035,19 @@ code {
   font-size: 0.95rem;
 }
 
-.plan-card textarea {
+.plan-form textarea {
   resize: vertical;
   min-height: 60px;
 }
 
-.plan-card label {
+.plan-form label {
   text-align: left;
   font-weight: 600;
   margin-bottom: 5px;
   color: #555;
 }
 
-.plan-card button {
+.plan-form button {
   background-color: #ff3385;
   color: #fff;
   font-weight: bold;
@@ -1062,7 +1058,7 @@ code {
   transition: background-color 0.2s ease;
 }
 
-.plan-card button:hover {
+.plan-form button:hover {
   background-color: #e02772;
 }
 
