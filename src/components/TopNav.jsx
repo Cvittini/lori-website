@@ -29,14 +29,8 @@ const TopNav = () => {
         <Link to="/events" className="nav-link" onClick={() => setMenuOpen(false)}>
           Events
         </Link>
-        <Link to="/meals" className="nav-link" onClick={() => setMenuOpen(false)}>
-          Meals
-        </Link>
         <Link to="/plans" className="nav-link" onClick={() => setMenuOpen(false)}>
           Plans
-        </Link>
-        <Link to="/blog" className="nav-link" onClick={() => setMenuOpen(false)}>
-          Blog
         </Link>
         <Link to="/feedback" className="nav-link" onClick={() => setMenuOpen(false)}>
           Feedback
