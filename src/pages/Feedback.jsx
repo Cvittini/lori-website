@@ -3,10 +3,25 @@ import '../Styles/harmonized-styles.css';
 
 const Feedback = () => {
   const [submitted, setSubmitted] = useState(false);
+  const [formData, setFormData] = useState({ name: '', message: '', rating: '' });
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    try {
+      await fetch('/api/feedback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      setSubmitted(true);
+    } catch (err) {
+      console.error('Feedback submit error:', err);
+    }
   };
 
   return (
@@ -20,10 +35,30 @@ const Feedback = () => {
         </div>
       ) : (
         <form className="feedback-form-girly" onSubmit={handleSubmit}>
-          <input type="text" placeholder="Your Name (optional)" />
-          <textarea placeholder="Tell us everything 💌" rows="4" required></textarea>
-          <select defaultValue="">
-            <option value="" disabled>How are we doing? 💬</option>
+          <input
+            type="text"
+            name="name"
+            placeholder="Your Name (optional)"
+            value={formData.name}
+            onChange={handleChange}
+          />
+          <textarea
+            name="message"
+            placeholder="Tell us everything 💌"
+            rows="4"
+            required
+            value={formData.message}
+            onChange={handleChange}
+          ></textarea>
+          <select
+            name="rating"
+            value={formData.rating}
+            onChange={handleChange}
+            required
+          >
+            <option value="" disabled>
+              How are we doing? 💬
+            </option>
             <option value="5">🌟🌟🌟🌟🌟 - Amazing!</option>
             <option value="4">🌟🌟🌟🌟 - Great!</option>
             <option value="3">🌟🌟🌟 - Okay</option>
