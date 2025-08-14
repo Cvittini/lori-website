@@ -26,25 +26,11 @@ const Home = () => {
 
       {/* Highlight Boxes */}
       <section className="feature-grid">
-        <Link to="/meals" className="feature-box">
-          <div className="icon">🥗</div>
-          <h3>Healthy Meals</h3>
-          <p>Delicious, energizing meals and drinks available at events.</p>
-        </Link>
-
         <Link to="/plans" className="feature-box">
           <div className="icon">📋</div>
           <h3>Custom Plans</h3>
           <p>
             Create your ideal workout and meal strategy based on your needs.
-          </p>
-        </Link>
-
-        <Link to="/blog" className="feature-box">
-          <div className="icon">📝</div>
-          <h3>Blog</h3>
-          <p>
-            Stay motivated with tips, stories, and advice for a healthy life.
           </p>
         </Link>
 
