@@ -2,6 +2,7 @@ import React, { useMemo, useState } from "react";
 import "../Styles/harmonized-styles.css";
 import EventCard from "../components/EventCard/EventCard";
 import eventsData from "../data/events";
+import { postReservation } from "../lib/api";
 
 const sortEvents = (arr) =>
   [...arr].sort((a, b) => {
@@ -10,42 +11,41 @@ const sortEvents = (arr) =>
     return ad.localeCompare(bd);
   });
 
-const enc = (s) => encodeURIComponent(String(s || ""));
-
 export default function EventPage() {
   const events = useMemo(() => sortEvents(eventsData), []);
   const [form, setForm] = useState({
-    fullName: "",
+    name: "",
     email: "",
     phone: "",
-    selectedEventId: events.length ? events[0].id : "",
+    eventId: events.length ? events[0].id : "",
   });
-  const selected = events.find((e) => e.id === form.selectedEventId) || events[0];
+  const selected = events.find((e) => e.id === form.eventId) || events[0];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((f) => ({ ...f, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!form.fullName || !form.email || !form.selectedEventId) {
+    if (!form.name || !form.email || !form.eventId) {
       alert("Please fill name, email, and select an event.");
       return;
     }
 
-    const subject = `Event Registration — ${selected?.title || ""}`;
-    const body =
-      `Name: ${form.fullName}\n` +
-      `Email: ${form.email}\n` +
-      (form.phone ? `Phone: ${form.phone}\n` : "") +
-      `Event: ${selected?.title || ""}\n` +
-      `Date/Time: ${selected?.date || ""} ${selected?.time || ""}\n` +
-      `Location: ${selected?.location || ""}\n` +
-      (selected?.price ? `Price: $${selected.price}\n` : "") +
-      `\nPlease confirm my spot.`;
-
-    window.location.href = `mailto:lorimarfitness@gmail.com?subject=${enc(subject)}&body=${enc(body)}`;
+    try {
+      await postReservation({
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        eventId: form.eventId,
+      });
+      alert("Reservation submitted! We'll be in touch soon.");
+      setForm({ name: "", email: "", phone: "", eventId: events[0]?.id || "" });
+    } catch (err) {
+      console.error("Reservation submit error:", err);
+      alert("Failed to submit reservation. Please try again later.");
+    }
   };
 
   return (
@@ -80,12 +80,14 @@ export default function EventPage() {
 
           <form className="registration-form card" onSubmit={handleSubmit} autoComplete="off">
             <div className="form-row">
-              <label htmlFor="selectedEventId">Event</label>
+              <label htmlFor="eventIdSelect">Event</label>
               <select
-                id="selectedEventId"
-                name="selectedEventId"
-                value={form.selectedEventId}
-                onChange={handleChange}
+                id="eventIdSelect"
+                name="eventIdSelect"
+                value={form.eventId}
+                onChange={(e) =>
+                  handleChange({ target: { name: "eventId", value: e.target.value } })
+                }
                 required
               >
                 {events.map((e) => (
@@ -94,16 +96,17 @@ export default function EventPage() {
                   </option>
                 ))}
               </select>
+              <input type="hidden" name="eventId" value={form.eventId} />
             </div>
 
             <div className="form-row">
-              <label htmlFor="fullName">Full Name</label>
+              <label htmlFor="name">Full Name</label>
               <input
-                id="fullName"
+                id="name"
                 type="text"
-                name="fullName"
+                name="name"
                 placeholder="Full Name"
-                value={form.fullName}
+                value={form.name}
                 onChange={handleChange}
                 required
               />
@@ -135,7 +138,7 @@ export default function EventPage() {
             </div>
 
             <button type="submit" className="btn-primary">Reserve Spot</button>
-            <p className="muted small">This opens your email app to send your registration.</p>
+            <p className="muted small">We'll confirm your reservation by email.</p>
           </form>
         </div>
       </section>

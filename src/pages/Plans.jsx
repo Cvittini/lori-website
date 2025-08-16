@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../Styles/harmonized-styles.css";
+import { postPlan } from "../lib/api";
 
 const Plans = () => {
   const [formData, setFormData] = useState({
@@ -26,35 +27,39 @@ const Plans = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:5000/api/plans", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const payload = {
+        name: formData.name,
+        email: formData.email,
+        age: Number(formData.age),
+        disliked_foods: formData.dislikedFoods,
+        allergies: formData.allergies,
+        meals_per_day: Number(formData.preferredMeals),
+        height_cm: Number(formData.height),
+        weight_kg: Number(formData.weight),
+        fitness_level: formData.fitnessLevel,
+        goal: formData.goal,
+        workout_access: formData.workoutAccess,
+      };
 
-      const data = await res.json();
-      if (res.ok) {
-        alert("Thank you! Your custom plan request was submitted.");
-        console.log("Submitted data:", formData);
-        setFormData({
-          name: "",
-          email: "",
-          age: "",
-          dislikedFoods: "",
-          allergies: "",
-          preferredMeals: "",
-          height: "",
-          weight: "",
-          fitnessLevel: "",
-          goal: "",
-          workoutAccess: "",
-        });
-      } else {
-        alert("Submission failed: " + data.error);
-      }
+      await postPlan(payload);
+      alert("Thank you! Your custom plan request was submitted.");
+      console.log("Submitted data:", payload);
+      setFormData({
+        name: "",
+        email: "",
+        age: "",
+        dislikedFoods: "",
+        allergies: "",
+        preferredMeals: "",
+        height: "",
+        weight: "",
+        fitnessLevel: "",
+        goal: "",
+        workoutAccess: "",
+      });
     } catch (err) {
       console.error(err);
-      alert("Server error. Please try again.");
+      alert("Submission failed. Please try again.");
     }
   };
 
