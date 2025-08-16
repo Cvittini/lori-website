@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import '../Styles/harmonized-styles.css';
+import { postFeedback } from '../lib/api';
 
 const Feedback = () => {
   const [submitted, setSubmitted] = useState(false);
-  const [formData, setFormData] = useState({ name: '', message: '', rating: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', message: '', rating: '' });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -13,11 +14,7 @@ const Feedback = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await fetch('/api/feedback', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
+      await postFeedback(formData);
       setSubmitted(true);
     } catch (err) {
       console.error('Feedback submit error:', err);
@@ -40,6 +37,13 @@ const Feedback = () => {
             name="name"
             placeholder="Your Name (optional)"
             value={formData.name}
+            onChange={handleChange}
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Your Email (optional)"
+            value={formData.email}
             onChange={handleChange}
           />
           <textarea

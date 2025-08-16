@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../Styles/harmonized-styles.css';
 import { FaInstagram, FaWhatsapp, FaTelegramPlane } from 'react-icons/fa';
+import { postNewsletter } from '../lib/api';
 
 const Footer = () => {
+  const [email, setEmail] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await postNewsletter(email);
+      setEmail('');
+    } catch (err) {
+      console.error('Newsletter submit error:', err);
+    }
+  };
+
   return (
     <footer className="footer-container">
       <div className="footer-brand">
@@ -12,8 +25,14 @@ const Footer = () => {
 
       <div className="newsletter">
         <p>Stay updated on events & wellness tips</p>
-        <form className="newsletter-form">
-          <input type="email" placeholder="Enter your email" />
+        <form className="newsletter-form" onSubmit={handleSubmit}>
+          <input
+            type="email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
           <button type="submit">Subscribe</button>
         </form>
       </div>
