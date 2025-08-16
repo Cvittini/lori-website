@@ -2,7 +2,7 @@
 const events = [
   {
     id: "e1",
-    image: "public/Lorifitnesslogo.png",
+    image: "/Lorifitnesslogo.png",
     title: "Zumba Energy Blast",
     description: "Dance your way to fitness — outdoor session with great music.",
     date: "2025-08-16",
