@@ -292,8 +292,8 @@ code {
 .event-image {
   width: 100%;
   aspect-ratio: 16/9;
-  object-fit: cover;
-  display: block;
+
+
 }
 .event-badge {
   position: absolute;
