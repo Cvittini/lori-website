@@ -1,0 +1,10 @@
+{
+    "collectionName": "components_video_media_videos",
+    "info": {
+        "displayName": "media.video",
+        "icon": "play"
+    },
+    "options": {},
+    "attributes": {},
+    "config": {}
+}

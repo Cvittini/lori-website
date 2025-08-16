@@ -1,0 +1,24 @@
+{
+    "kind": "collectionType",
+    "collectionName": "sop_pack_options",
+    "info": {
+        "singularName": "sop-pack-option",
+        "pluralName": "sop-pack-options",
+        "displayName": "sop.packOption"
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "label": {
+            "type": "string"
+        },
+        "quantity": {
+            "type": "integer"
+        },
+        "price": {
+            "type": "decimal"
+        }
+    }
+}
