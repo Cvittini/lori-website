@@ -779,11 +779,6 @@ code {
 
 /* Hero */
 .hero-section {
-  background: linear-gradient(
-    135deg,
-    var(--accent-light),
-    var(--accent-lavender)
-  );
   text-align: center;
   padding: 100px 20px;
 }
@@ -809,7 +804,6 @@ code {
   text-decoration: none;
   border-radius: 25px;
   font-weight: bold;
-  transition: background 0.3s;
 }
 
 .home-cta:hover {
@@ -820,7 +814,6 @@ code {
 .about-section {
   padding: 60px 20px;
   text-align: center;
-  background: #ffffff;
   max-width: 900px;
   margin: 0 auto;
   border-radius: 20px;
@@ -846,7 +839,6 @@ code {
 }
 
 .feature-box {
-  background: white;
   border-radius: 20px;
   padding: 30px;
   text-align: center;
@@ -855,7 +847,7 @@ code {
   font-family: "Raleway", sans-serif;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
-  border: 2px solid #fff;
+  border: 2px solid #ff3385;
 }
 
 .feature-box:hover {
