@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../Styles/harmonized-styles.css";
-import { postPlan } from "../lib/api";
+import { sendEmail, isValidEmail } from "../lib/email";
 
 const Plans = () => {
   const [formData, setFormData] = useState({
@@ -16,6 +16,8 @@ const Plans = () => {
     goal: "",
     workoutAccess: "",
   });
+  const [honeypot, setHoneypot] = useState("");
+  const [status, setStatus] = useState(null); // {type, text}
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -26,24 +28,31 @@ const Plans = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const payload = {
-        name: formData.name,
-        email: formData.email,
-        age: Number(formData.age),
-        disliked_foods: formData.dislikedFoods,
-        allergies: formData.allergies,
-        meals_per_day: Number(formData.preferredMeals),
-        height_cm: Number(formData.height),
-        weight_kg: Number(formData.weight),
-        fitness_level: formData.fitnessLevel,
-        goal: formData.goal,
-        workout_access: formData.workoutAccess,
-      };
+    if (honeypot) return;
+    if (
+      !formData.name ||
+      !isValidEmail(formData.email) ||
+      !formData.age ||
+      !formData.preferredMeals ||
+      !formData.height ||
+      !formData.weight ||
+      !formData.fitnessLevel ||
+      !formData.goal ||
+      !formData.workoutAccess
+    ) {
+      setStatus({ type: "error", text: "Please fill out all required fields with valid information." });
+      return;
+    }
 
-      await postPlan(payload);
-      alert("Thank you! Your custom plan request was submitted.");
-      console.log("Submitted data:", payload);
+    try {
+      const message = `Name: ${formData.name}\nEmail: ${formData.email}\nAge: ${formData.age}\nHeight: ${formData.height}\nWeight: ${formData.weight}\nFitness Level: ${formData.fitnessLevel}\nGoal: ${formData.goal}\nWorkout Access: ${formData.workoutAccess}\nDisliked Foods: ${formData.dislikedFoods}\nAllergies: ${formData.allergies}\nMeals per day: ${formData.preferredMeals}`;
+
+      await sendEmail({
+        subject: "Plan Request",
+        message,
+        reply_to: formData.email,
+      });
+      setStatus({ type: "success", text: "Thank you! Your custom plan request was submitted." });
       setFormData({
         name: "",
         email: "",
@@ -59,7 +68,7 @@ const Plans = () => {
       });
     } catch (err) {
       console.error(err);
-      alert("Submission failed. Please try again.");
+      setStatus({ type: "error", text: "Submission failed. Please try again." });
     }
   };
 
@@ -175,6 +184,17 @@ const Plans = () => {
         </select>
 
         <button type="submit">Submit Plan</button>
+        {/* Honeypot */}
+        <input
+          type="text"
+          name="nickname"
+          value={honeypot}
+          onChange={(e) => setHoneypot(e.target.value)}
+          style={{ display: "none" }}
+          tabIndex="-1"
+          autoComplete="off"
+        />
+        {status && <p className={`form-message ${status.type}`}>{status.text}</p>}
       </form>
     </div>
   );
