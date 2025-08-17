@@ -5,12 +5,14 @@ import { postNewsletter } from '../lib/api';
 
 const Footer = () => {
   const [email, setEmail] = useState('');
+  const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await postNewsletter(email);
       setEmail('');
+      setSubmitted(true);
     } catch (err) {
       console.error('Newsletter submit error:', err);
     }
@@ -25,16 +27,20 @@ const Footer = () => {
 
       <div className="newsletter">
         <p>Stay updated on events & wellness tips</p>
-        <form className="newsletter-form" onSubmit={handleSubmit}>
-          <input
-            type="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <button type="submit">Subscribe</button>
-        </form>
+        {submitted ? (
+          <p className="newsletter-success">Thanks for subscribing!</p>
+        ) : (
+          <form className="newsletter-form" onSubmit={handleSubmit}>
+            <input
+              type="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <button type="submit">Subscribe</button>
+          </form>
+        )}
       </div>
 
       <div className="footer-social">
