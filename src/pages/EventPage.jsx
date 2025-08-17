@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import "../Styles/harmonized-styles.css";
 import EventCard from "../components/EventCard/EventCard";
 import eventsData from "../data/events";
-import { postReservation } from "../lib/api";
+import { sendEmail, isValidEmail } from "../lib/email";
 
 const sortEvents = (arr) =>
   [...arr].sort((a, b) => {
@@ -19,6 +19,8 @@ export default function EventPage() {
     phone: "",
     eventId: events.length ? events[0].id : "",
   });
+  const [honeypot, setHoneypot] = useState("");
+  const [status, setStatus] = useState(null); // {type, text}
   const selected = events.find((e) => e.id === form.eventId) || events[0];
 
   const handleChange = (e) => {
@@ -28,23 +30,23 @@ export default function EventPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!form.name || !form.email || !form.eventId) {
-      alert("Please fill name, email, and select an event.");
+    if (honeypot) return;
+    if (!form.name || !isValidEmail(form.email) || !form.eventId) {
+      setStatus({ type: "error", text: "Please fill name, valid email, and select an event." });
       return;
     }
 
     try {
-      await postReservation({
-        name: form.name,
-        email: form.email,
-        phone: form.phone,
-        eventId: form.eventId,
+      await sendEmail({
+        subject: "Event Reservation",
+        message: `Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nEvent: ${selected.title}`,
+        reply_to: form.email,
       });
-      alert("Reservation submitted! We'll be in touch soon.");
+      setStatus({ type: "success", text: "Reservation submitted! We'll be in touch soon." });
       setForm({ name: "", email: "", phone: "", eventId: events[0]?.id || "" });
     } catch (err) {
       console.error("Reservation submit error:", err);
-      alert("Failed to submit reservation. Please try again later.");
+      setStatus({ type: "error", text: "Failed to submit reservation. Please try again later." });
     }
   };
 
@@ -138,6 +140,17 @@ export default function EventPage() {
             </div>
 
             <button type="submit" className="btn-primary">Reserve Spot</button>
+            {/* Honeypot */}
+            <input
+              type="text"
+              name="address"
+              value={honeypot}
+              onChange={(e) => setHoneypot(e.target.value)}
+              style={{ display: "none" }}
+              tabIndex="-1"
+              autoComplete="off"
+            />
+            {status && <p className={`form-message ${status.type}`}>{status.text}</p>}
             <p className="muted small">We'll confirm your reservation by email.</p>
           </form>
         </div>

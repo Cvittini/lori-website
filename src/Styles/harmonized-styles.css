@@ -369,6 +369,17 @@ code {
 .small {
   font-size: 0.875rem;
 }
+
+.form-message {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+.form-message.success {
+  color: green;
+}
+.form-message.error {
+  color: var(--primary-color);
+}
 .card {
   background: #fff;
   border-radius: 14px;
