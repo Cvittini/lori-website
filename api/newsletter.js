@@ -1,5 +1,4 @@
 const { sendEmail } = require('./_shared/email');
-const { saveToSupabase } = require('./_shared/supabase');
 
 module.exports = async (req, res) => {
   if (req.method !== 'POST') {
@@ -11,9 +10,6 @@ module.exports = async (req, res) => {
     return res.status(400).json({ error: 'Email is required' });
   }
   const text = `New newsletter signup\nEmail: ${email}`;
-  await Promise.all([
-    sendEmail({ subject: 'Newsletter Signup', text }),
-    saveToSupabase('newsletter', { email }),
-  ]);
+  await sendEmail({ subject: 'Newsletter Signup', text });
   res.status(200).json({ ok: true });
 };

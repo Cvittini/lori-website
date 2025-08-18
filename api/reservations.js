@@ -1,5 +1,4 @@
 const { sendEmail } = require('./_shared/email');
-const { saveToSupabase } = require('./_shared/supabase');
 
 module.exports = async (req, res) => {
   if (req.method !== 'POST') {
@@ -16,14 +15,6 @@ module.exports = async (req, res) => {
     `\nEmail: ${email}` +
     (phone ? `\nPhone: ${phone}` : '') +
     `\nEvent ID: ${eventId}`;
-  await Promise.all([
-    sendEmail({ subject: 'New Event Reservation', text }),
-    saveToSupabase('reservations', {
-      name,
-      email,
-      phone,
-      event_id: eventId,
-    }),
-  ]);
+  await sendEmail({ subject: 'New Event Reservation', text });
   res.status(200).json({ ok: true });
 };

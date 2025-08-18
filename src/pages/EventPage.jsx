@@ -2,7 +2,12 @@ import React, { useMemo, useState } from "react";
 import "../Styles/harmonized-styles.css";
 import EventCard from "../components/EventCard/EventCard";
 import eventsData from "../data/events";
-import { sendEmail, isValidEmail } from "../lib/email";
+import emailjs from 'emailjs-com';
+import { isValidEmail } from "../lib/email";
+
+const SERVICE_ID = 'service_839t84l';
+const TEMPLATE_ID = 'template_lbtk24d';
+const PUBLIC_KEY = 'QYkr433CtbV-jJkbi';
 
 const sortEvents = (arr) =>
   [...arr].sort((a, b) => {
@@ -37,11 +42,17 @@ export default function EventPage() {
     }
 
     try {
-      await sendEmail({
-        subject: "Event Reservation",
-        message: `Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nEvent: ${selected.title}`,
-        reply_to: form.email,
-      });
+      await emailjs.send(
+        SERVICE_ID,
+        TEMPLATE_ID,
+        {
+          to_email: 'lorimarfitness@gmail.com',
+          subject: 'Event Reservation',
+          message: `Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nEvent: ${selected.title}`,
+          reply_to: form.email,
+        },
+        PUBLIC_KEY,
+      );
       setStatus({ type: "success", text: "Reservation submitted! We'll be in touch soon." });
       setForm({ name: "", email: "", phone: "", eventId: events[0]?.id || "" });
     } catch (err) {

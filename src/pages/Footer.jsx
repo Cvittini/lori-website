@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import '../Styles/harmonized-styles.css';
 import { FaInstagram, FaWhatsapp, FaTelegramPlane } from 'react-icons/fa';
-import { sendEmail, isValidEmail } from '../lib/email';
+import emailjs from 'emailjs-com';
+import { isValidEmail } from '../lib/email';
+
+const SERVICE_ID = 'service_839t84l';
+const TEMPLATE_ID = 'template_lbtk24d';
+const PUBLIC_KEY = 'QYkr433CtbV-jJkbi';
 
 const Footer = () => {
   const [email, setEmail] = useState('');
@@ -16,11 +21,17 @@ const Footer = () => {
       return;
     }
     try {
-      await sendEmail({
-        subject: 'Newsletter Subscription',
-        message: `New subscriber: ${email}`,
-        reply_to: email,
-      });
+      await emailjs.send(
+        SERVICE_ID,
+        TEMPLATE_ID,
+        {
+          to_email: 'lorimarfitness@gmail.com',
+          subject: 'Newsletter Subscription',
+          message: `New subscriber: ${email}`,
+          reply_to: email,
+        },
+        PUBLIC_KEY,
+      );
       setEmail('');
       setStatus({ type: 'success', text: 'Thanks for subscribing!' });
     } catch (err) {

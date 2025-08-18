@@ -1,5 +1,4 @@
 const { sendEmail } = require('./_shared/email');
-const { saveToSupabase } = require('./_shared/supabase');
 
 module.exports = async (req, res) => {
   if (req.method !== 'POST') {
@@ -16,14 +15,6 @@ module.exports = async (req, res) => {
     (email ? `\nEmail: ${email}` : '') +
     `\nRating: ${rating}` +
     `\nMessage:\n${message}`;
-  await Promise.all([
-    sendEmail({ subject: 'New Feedback', text }),
-    saveToSupabase('feedback', {
-      name,
-      email,
-      message,
-      rating,
-    }),
-  ]);
+  await sendEmail({ subject: 'New Feedback', text });
   res.status(200).json({ ok: true });
 };
