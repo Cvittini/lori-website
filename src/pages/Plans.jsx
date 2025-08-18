@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import "../Styles/harmonized-styles.css";
-import { sendEmail, isValidEmail } from "../lib/email";
+import emailjs from 'emailjs-com';
+import { isValidEmail } from "../lib/email";
+
+const SERVICE_ID = 'service_839t84l';
+const TEMPLATE_ID = 'template_lbtk24d';
+const PUBLIC_KEY = 'QYkr433CtbV-jJkbi';
 
 const Plans = () => {
   const [formData, setFormData] = useState({
@@ -47,11 +52,17 @@ const Plans = () => {
     try {
       const message = `Name: ${formData.name}\nEmail: ${formData.email}\nAge: ${formData.age}\nHeight: ${formData.height}\nWeight: ${formData.weight}\nFitness Level: ${formData.fitnessLevel}\nGoal: ${formData.goal}\nWorkout Access: ${formData.workoutAccess}\nDisliked Foods: ${formData.dislikedFoods}\nAllergies: ${formData.allergies}\nMeals per day: ${formData.preferredMeals}`;
 
-      await sendEmail({
-        subject: "Plan Request",
-        message,
-        reply_to: formData.email,
-      });
+      await emailjs.send(
+        SERVICE_ID,
+        TEMPLATE_ID,
+        {
+          to_email: 'lorimarfitness@gmail.com',
+          subject: 'Plan Request',
+          message,
+          reply_to: formData.email,
+        },
+        PUBLIC_KEY,
+      );
       setStatus({ type: "success", text: "Thank you! Your custom plan request was submitted." });
       setFormData({
         name: "",

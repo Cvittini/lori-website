@@ -1,5 +1,4 @@
 const { sendEmail } = require('./_shared/email');
-const { saveToSupabase } = require('./_shared/supabase');
 
 module.exports = async (req, res) => {
   if (req.method !== 'POST') {
@@ -36,21 +35,6 @@ module.exports = async (req, res) => {
     (fitness_level ? `\nFitness level: ${fitness_level}` : '') +
     (goal ? `\nGoal: ${goal}` : '') +
     (workout_access ? `\nWorkout access: ${workout_access}` : '');
-  await Promise.all([
-    sendEmail({ subject: 'New Plan Request', text }),
-    saveToSupabase('plans', {
-      name,
-      email,
-      age,
-      disliked_foods,
-      allergies,
-      meals_per_day,
-      height_cm,
-      weight_kg,
-      fitness_level,
-      goal,
-      workout_access,
-    }),
-  ]);
+  await sendEmail({ subject: 'New Plan Request', text });
   res.status(200).json({ ok: true });
 };
