@@ -11,8 +11,8 @@ const TopNav = () => {
       <div className="top-left">
         <Link to="/">
           <img
-            src="/lorimarfitlogo.png"
-            alt="Lorimar Logo"
+            src="/lorisfitnesslogo.png"
+            alt="Loris Fitness Logo"
             className="logo"
           />
         </Link>

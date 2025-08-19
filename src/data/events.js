@@ -2,14 +2,14 @@
 const events = [
   {
     id: "e1",
-    image: "/Lorifitnesslogo.png",
-    title: "Zumba Energy Blast",
-    description: "Dance your way to fitness — outdoor session with great music.",
-    date: "2025-08-16",
-    time: "12:00 PM",
-    location: "York Park",
-    tags: ["Zumba", "Community", "Outdoor"],
-    price: 25,
+    image: "/eventphotosweatandglow.jpeg",
+    title: "Glow and Sweat",
+    description: "Preparate para sudar, brillar y llevarte esa vibra que solo se vive en comunidad 🔥. No importa tu nivel, lo importante es que vengas con la mejor actitud.",
+    date: "08-30-2025",
+    time: "08:00 AM",
+    location: "Lancaster",
+    tags: ["Workout", "Community", "Outdoor"],
+    price: 15.00,
   },
 
 ];
