@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../Styles/harmonized-styles.css';
 import emailjs from 'emailjs-com';
 import { isValidEmail } from '../lib/email';
+import { useTranslation } from 'react-i18next';
 
 const SERVICE_ID = 'service_839t84l';
 const TEMPLATE_ID = 'template_lbtk24d';
@@ -11,6 +12,7 @@ const Feedback = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '', rating: '' });
   const [honeypot, setHoneypot] = useState('');
   const [status, setStatus] = useState(null); // {type, text}
+  const { t } = useTranslation('common');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -50,27 +52,27 @@ const Feedback = () => {
 
   return (
     <section className="feedback-girly">
-      <h2 className="feedback-heading">Your voice makes us stronger 💪💗</h2>
+      <h2 className="feedback-heading">{t('feedback_title')}</h2>
       <p className="feedback-subtext">Leave a note, share a smile, or tell us how we can glow better together ✨</p>
 
       <form className="feedback-form-girly" onSubmit={handleSubmit}>
         <input
           type="text"
           name="name"
-          placeholder="Your Name (optional)"
+          placeholder={`${t('name')} (optional)`}
           value={formData.name}
           onChange={handleChange}
         />
         <input
           type="email"
           name="email"
-          placeholder="Your Email (optional)"
+          placeholder={`${t('email')} (optional)`}
           value={formData.email}
           onChange={handleChange}
         />
         <textarea
           name="message"
-          placeholder="Tell us everything 💌"
+          placeholder={`${t('message')} 💌`}
           rows="4"
           required
           value={formData.message}
@@ -100,7 +102,7 @@ const Feedback = () => {
           tabIndex="-1"
           autoComplete="off"
         />
-        <button type="submit">Send Your Love 💖</button>
+        <button type="submit">{t('submit')}</button>
         {status && <p className={`form-message ${status.type}`}>{status.text}</p>}
       </form>
     </section>
