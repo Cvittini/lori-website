@@ -3,6 +3,7 @@ import '../Styles/harmonized-styles.css';
 import { FaInstagram, FaWhatsapp, FaTelegramPlane } from 'react-icons/fa';
 import emailjs from 'emailjs-com';
 import { isValidEmail } from '../lib/email';
+import { useTranslation } from 'react-i18next';
 
 const SERVICE_ID = 'service_839t84l';
 const TEMPLATE_ID = 'template_lbtk24d';
@@ -12,6 +13,7 @@ const Footer = () => {
   const [email, setEmail] = useState('');
   const [honeypot, setHoneypot] = useState('');
   const [status, setStatus] = useState(null); // { type: 'success' | 'error', text: string }
+  const { t } = useTranslation('common');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -48,11 +50,11 @@ const Footer = () => {
       </div>
 
       <div className="newsletter">
-        <p>Stay updated on events & wellness tips</p>
+        <p>{t('newsletter_cta')}</p>
         <form className="newsletter-form" onSubmit={handleSubmit}>
           <input
             type="email"
-            placeholder="Enter your email"
+            placeholder={t('email')}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -67,7 +69,7 @@ const Footer = () => {
             tabIndex="-1"
             autoComplete="off"
           />
-          <button type="submit">Subscribe</button>
+          <button type="submit">{t('submit')}</button>
         </form>
         {status && (
           <p className={`form-message ${status.type}`}>{status.text}</p>

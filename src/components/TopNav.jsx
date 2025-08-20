@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../Styles/harmonized-styles.css";
 import { FaInstagram, FaTelegramPlane, FaWhatsapp } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 const TopNav = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { t } = useTranslation("common");
 
   return (
     <div className="top-navbar">
@@ -24,16 +27,16 @@ const TopNav = () => {
 
       <div className={`top-right ${menuOpen ? "active" : ""}`}>
         <Link to="/" className="nav-link" onClick={() => setMenuOpen(false)}>
-          Home
+          {t("home")}
         </Link>
         <Link to="/events" className="nav-link" onClick={() => setMenuOpen(false)}>
-          Events
+          {t("events")}
         </Link>
         <Link to="/plans" className="nav-link" onClick={() => setMenuOpen(false)}>
-          Plans
+          {t("plans")}
         </Link>
         <Link to="/feedback" className="nav-link" onClick={() => setMenuOpen(false)}>
-          Feedback
+          {t("contact")}
         </Link>
 
         <a
@@ -49,6 +52,7 @@ const TopNav = () => {
           />
         </a>
 
+        <LanguageSwitcher compact />
         <div className="social-icons">
           <a
             href="https://www.instagram.com/lorimar_djesus/profilecard/?igsh=MXJuajFlM3M2ejA4dA=="

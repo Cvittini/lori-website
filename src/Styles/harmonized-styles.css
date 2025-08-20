@@ -1002,3 +1002,14 @@ code {
 .plan-form button:hover {
   background-color: #e02772;
 }
+.lang-switcher { display: inline-flex; gap: 8px; align-items: center; }
+.lang-btn {
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--primary-color);
+  background: transparent;
+  color: var(--primary-color);
+  font-weight: 600;
+  cursor: pointer;
+}
+.lang-btn.active, .lang-btn:hover { background: var(--primary-color); color: #fff; }
